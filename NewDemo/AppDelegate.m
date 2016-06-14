@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "QNewsHomeController.h"
+#import "QLSNavigationController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +18,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    self.window = [[UIWindow alloc]initWithFrame:ScreenFrame];
+
+    QNewsHomeController *vc = [[QNewsHomeController alloc]init];
+
+    QLSNavigationController *nav = [[QLSNavigationController alloc]initWithRootViewController:vc];
+
+    self.window.rootViewController = nav;
+
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
