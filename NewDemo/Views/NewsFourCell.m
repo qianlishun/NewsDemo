@@ -86,7 +86,7 @@
     //http://3g.163.com/touch/photoview.html?channel=all&offset=1&setid=2186450&channelid=0001
 
 
-    NSLog(@"list url %@",self.listURL[index]);
+//    NSLog(@"list url %@",self.listURL[index]);
 
     NSString *setid =  [self.listURL[index] componentsSeparatedByString:@"|"].lastObject;
 

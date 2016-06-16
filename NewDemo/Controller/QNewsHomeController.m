@@ -82,22 +82,33 @@ static NSString *const ID = @"home_cell";
     CGFloat marginX = 5;
     CGFloat x = marginX;
     CGFloat h = self.scrollView.bounds.size.height;
-
+    int i = 1;
     for (Channel *channel in self.channels) {
         ChannelLabel *lbl = [ChannelLabel channelLabelWithTName:channel.tname];
         [self.scrollView addSubview:lbl];
 
         lbl.frame = CGRectMake(x, 0, lbl.frame.size.width, h);
 
+        [lbl addTarget:self action:@selector(didChannelClick:) forControlEvents:UIControlEventTouchUpInside];
+
         x += lbl.frame.size.width + marginX;
+
+        lbl.tag = i;
+        i++;
     }
-
-
+    
     self.scrollView.contentSize = CGSizeMake(x, 0);
     self.scrollView.showsHorizontalScrollIndicator = NO;
 
     ChannelLabel *firstLabel = self.scrollView.subviews[0];
     firstLabel.scale = 1;
+}
+
+- (void)didChannelClick:(UIButton *)sender{
+    CGFloat sw = sender.bounds.size.width;
+    CGFloat cw =  self.view.bounds.size.width;
+    [self.scrollView setContentOffset:CGPointMake(sw * sender.tag , 0) animated:YES];
+    [self.collectionView setContentOffset:CGPointMake(cw * sender.tag , 0)animated:NO];
 }
 
 #pragma mark dataSource
@@ -131,12 +142,21 @@ static NSString *const ID = @"home_cell";
     if (nextLabel == nil) {
         return;
     }
-
+    // 获取滚动比例
     CGFloat nextScale = ABS(scrollView.contentOffset.x / scrollView.bounds.size.width - self.currentIndex);
     CGFloat  currentScale = 1 - nextScale;
+
+    for (id obj in self.scrollView.subviews) {
+        if ([[obj class] isSubclassOfClass:[UIButton class]]) {
+            ChannelLabel *lbl = (ChannelLabel *)obj;
+            lbl.scale = 0;
+        }
+    }
     
     nextLabel.scale = nextScale;
     curentLabel.scale = currentScale;
+
+    self.currentIndex = scrollView.contentOffset.x / scrollView.bounds.size.width;
 
 }
 

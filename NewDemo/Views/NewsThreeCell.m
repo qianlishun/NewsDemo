@@ -66,7 +66,7 @@
     }
 
     [self.imgIcon sd_setImageWithURL:[NSURL URLWithString:newsModel.imgsrc] placeholderImage:[UIImage imageNamed:@"0"]];
-    NSLog(@"%@",newsModel.imgsrc);
+//    NSLog(@"%@",newsModel.imgsrc);
 }
 
 -(void)layoutSubviews{

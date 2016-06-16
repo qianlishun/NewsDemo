@@ -12,15 +12,19 @@
 #define kSMALLFONT 14
 @implementation ChannelLabel
 
-+ (instancetype)channelLabelWithTName:(NSString *)tname {
-    ChannelLabel *lbl = [self new];
++ (instancetype)channelLabelWithTName:(NSString *)tname{
+    ChannelLabel *lbl = [self buttonWithType:UIButtonTypeCustom];
 
-    lbl.text = tname;
-    lbl.textAlignment = NSTextAlignmentCenter;
-    lbl.font = [UIFont systemFontOfSize:kBIGFONT];
+    [lbl setTitle:tname forState:UIControlStateNormal];
+
+    [lbl setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+    lbl.titleLabel.textAlignment = NSTextAlignmentCenter;
+    lbl.titleLabel.font = [UIFont systemFontOfSize:kBIGFONT];
     [lbl sizeToFit];
 
-    lbl.font = [UIFont systemFontOfSize:kSMALLFONT];
+    lbl.titleLabel.font = [UIFont systemFontOfSize:kSMALLFONT];
+    
     return lbl;
 }
 
@@ -28,6 +32,7 @@
 
     CGFloat max = kBIGFONT * 1.0 / kSMALLFONT - 1;
     self.transform = CGAffineTransformMakeScale(max * scale + 1, max * scale + 1);
-    self.textColor = [UIColor colorWithRed:scale green:0 blue:0 alpha:1];
+    [self setTitleColor:[UIColor colorWithRed:scale green:0 blue:0 alpha:1] forState:UIControlStateNormal];
 }
+
 @end

@@ -57,7 +57,6 @@
 
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.refreshView = weakSelf.tableView.footer;
-//        weakSelf.pageIndex = weakSelf.pageIndex +20;
 
         [weakSelf loadDataFromServer];
 
@@ -107,19 +106,14 @@
 
 //    NSString *urlString = [NSString stringWithFormat:@"http://c.m.163.com/nc/article/B6UKRIOE00963VRO/full.html"];
 
-
-
-    NSLog(@"%@",[NSString stringWithFormat:@"%@/%ld-10.html",self.url,self.pageIndex]);
-
     [NewsModel newsWithURLString:[NSString stringWithFormat:@"%@/%ld-10.html",self.url,self.pageIndex]  success:^(NSArray *array) {
-
-        NSLog(@"page %ld",self.pageIndex);
 
         if (self.pageIndex == 0) {
             self.listArray=nil;
 
             self.listArray = [NSMutableArray arrayWithArray:array];
 
+            // 拿出头条中的非轮播数据
             NewsModel *model =  array[0];
             NewsModel *tempModel = [NewsModel new];
             tempModel.title = model.title;
@@ -131,7 +125,6 @@
             
             [self.listArray insertObject:tempModel atIndex:1];
 
-            NSLog(@"%ld",self.listArray.count);
             self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
 
         }else{
@@ -139,7 +132,7 @@
             for (id obj in array) {
                 [self.listArray addObject:obj];
             }
-
+            // 去除头条重复数据
             NewsModel *model = array[0];
             model.ads = nil;
         }
@@ -153,8 +146,6 @@
          [self.refreshView endRefreshing];
 
     }];
-
-    NSLog(@"%@",self.url);
 
 }
 
@@ -175,8 +166,6 @@
 
 
     NewsModel *newsModel = self.listArray[indexPath.row];
-
-    NSLog(@"%ld",indexPath.row);
 
     NSString *ID = [NewsBaseCell cellIDforRow:newsModel];
 
