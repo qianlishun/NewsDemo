@@ -25,6 +25,8 @@
 
     QLSNavigationController *nav = [[QLSNavigationController alloc]initWithRootViewController:vc];
 
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavBar64"] forBarMetrics:UIBarMetricsDefault];
+
     self.window.rootViewController = nav;
 
     [self.window makeKeyAndVisible];

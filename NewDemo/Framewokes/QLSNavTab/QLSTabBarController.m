@@ -92,21 +92,15 @@
 
             nav = [[QLSNavigationController alloc]initWithRootViewController:vc];
 
-            //            if ([vc isKindOfClass:[UITableViewController class]]) {
-            //                nav = [[QLSNavigationController alloc]initWithRootViewController:(UITableViewController *)vc];
-            //                NSLog(@"table");
-            //            }else if([vc isKindOfClass:[UICollectionViewController class]]){
-            //                nav = [[QLSNavigationController alloc]initWithRootViewController:(UICollectionViewController *)vc];
-            //                NSLog(@"collection");
-            //            }else {
-            //                nav = [[QLSNavigationController alloc]initWithRootViewController:(UIViewController *)vc];
-            //                NSLog(@"view");
-            //            }
+        }
+        if (self.navigationBackgroundColor) {
+            [nav.navigationBar setBarTintColor:self.navigationBackgroundColor];
+        }
+        if (self.navigationBackgroundImage) {
+            [nav.navigationBar setBackgroundImage:self.navigationBackgroundImage forBarMetrics:UIBarMetricsDefault];
         }
 
         [self addChildViewController:nav];
-
-        [nav.navigationBar setBarTintColor:self.navigationBackgroundColor];
 
         [_tabBar addItemWithIcon:[dict objectForKey:NORMAL_ICON] selectedIcon:[dict objectForKey:SELECTED_ICON]  title:[dict objectForKey:TITLE]];
         
@@ -117,6 +111,10 @@
 
 -(void)setNavigationBackgroundColor:(UIColor *)navigationBackgroundColor{
     _navigationBackgroundColor = navigationBackgroundColor;
+}
+
+- (void)setNavigationBackgroundImage:(UIImage *)navigationBackgroundImage{
+    _navigationBackgroundImage = navigationBackgroundImage;
 }
 
 - (void)didReceiveMemoryWarning {

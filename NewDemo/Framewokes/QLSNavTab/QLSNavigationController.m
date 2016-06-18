@@ -21,7 +21,6 @@
 
     self.navigationBar.shadowImage = [[UIImage alloc]init];
 
-    [self.navigationBar  setBackgroundImage:[UIImage imageNamed:@"NavBar64"] forBarMetrics:UIBarMetricsDefault];
 }
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{

@@ -369,6 +369,8 @@
 				3E1BA4131D0D04F700B8C7EE /* Views */,
 				3E1BA2EC1D0D04BB00B8C7EE /* Assets.xcassets */,
 				3E1BA2EE1D0D04BB00B8C7EE /* LaunchScreen.storyboard */,
+				3E1BA2E31D0D04BB00B8C7EE /* AppDelegate.h */,
+				3E1BA2E41D0D04BB00B8C7EE /* AppDelegate.m */,
 				3E1BA2E01D0D04BB00B8C7EE /* Supporting Files */,
 			);
 			path = NewDemo;
@@ -380,8 +382,6 @@
 				3E1BA4361D0D052E00B8C7EE /* NewDemo.pch */,
 				3E1BA4371D0D052E00B8C7EE /* topic_news.json */,
 				3E1BA2F11D0D04BB00B8C7EE /* Info.plist */,
-				3E1BA2E31D0D04BB00B8C7EE /* AppDelegate.h */,
-				3E1BA2E41D0D04BB00B8C7EE /* AppDelegate.m */,
 				3E1BA2F71D0D04ED00B8C7EE /* Framewokes */,
 				3E1BA2E11D0D04BB00B8C7EE /* main.m */,
 			);

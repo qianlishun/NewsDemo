@@ -30,5 +30,7 @@
 
 @property (nonatomic,strong) UIColor *navigationBackgroundColor;
 
+@property (nonatomic,strong) UIImage *navigationBackgroundImage;
+
 
 @end
