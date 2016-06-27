@@ -7,6 +7,7 @@
 //
 
 #import "NewsWebController.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @interface NewsWebController ()
 
