@@ -13,7 +13,6 @@
 
 @property (nonatomic,strong) UIWebView *webView;
 
-
 @end
 
 @implementation NewsWebController
@@ -46,7 +45,7 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
-{//a_adtemp a_topad js-topad    /      topbar
+{//a_adtemp a_topad js-topad 广告  /      topbar  头部 bar
  //    [self.webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByClassName(\"topbar\")[0].hidden = true"];
 
     [self.webView stringByEvaluatingJavaScriptFromString:
@@ -65,6 +64,7 @@
     // finished loading, hide the activity indicator in the status bar
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
+    // 获取 webView 当前网页的 JSON  
     //    NSString *docStr=[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.textContent"];
     //    NSLog(@"json : %@",docStr);
     
