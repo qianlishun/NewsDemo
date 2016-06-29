@@ -9,7 +9,7 @@
 #import "NewsWebController.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 
-@interface NewsWebController ()
+@interface NewsWebController ()<UIWebViewDelegate>
 
 @end
 
@@ -40,6 +40,29 @@
         }
     }];
 }
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+
+    [self.webView stringByEvaluatingJavaScriptFromString:
+     @"document.getElementsByClassName(\"topbar\")[0].style.display = 'none'"];
+
+    [self.webView stringByEvaluatingJavaScriptFromString:
+     @"document.getElementsByClassName(\"a_adtemp a_topad js-topad\")[0].style.display = 'none'"];
+
+    // starting the load, show the activity indicator in the status bar
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if ([self.webView isLoading]) {
+        [self.webView stopLoading];
+    }
+    self.webView.delegate = nil;    // disconnect the delegate as the webview is hidden
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
 -(void)dealloc{
     NSLog(@"web dealloc ");
 }
