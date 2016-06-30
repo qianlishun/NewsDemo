@@ -82,7 +82,7 @@ static NSString *const ID = @"home_cell";
     CGFloat marginX = 5;
     CGFloat x = marginX;
     CGFloat h = self.scrollView.bounds.size.height;
-    int i = 1;
+    int i = 0;
     for (Channel *channel in self.channels) {
         ChannelLabel *lbl = [ChannelLabel channelLabelWithTName:channel.tname];
         [self.scrollView addSubview:lbl];
@@ -106,9 +106,12 @@ static NSString *const ID = @"home_cell";
 
 - (void)didChannelClick:(UIButton *)sender{
     CGFloat sw = sender.bounds.size.width;
-    CGFloat cw =  self.view.bounds.size.width;
-    [self.scrollView setContentOffset:CGPointMake(sw * sender.tag , 0) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(sw * (sender.tag - self.currentIndex), 0) animated:YES];
     [self.collectionView setContentOffset:CGPointMake(cw * sender.tag , 0)animated:NO];
+    
+    self.currentIndex = sender.tag;
+    
+    [sender setTitleColor:[UIColor redColor]forState:UIControlStateNormal]; 
 }
 
 #pragma mark dataSource
