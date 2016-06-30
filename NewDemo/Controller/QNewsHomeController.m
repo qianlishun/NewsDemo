@@ -105,13 +105,15 @@ static NSString *const ID = @"home_cell";
 }
 
 - (void)didChannelClick:(UIButton *)sender{
-    CGFloat sw = sender.bounds.size.width;
-    [self.scrollView setContentOffset:CGPointMake(sw * (sender.tag - self.currentIndex), 0) animated:YES];
+    CGFloat cw = self.view.bounds.size.width;
+
     [self.collectionView setContentOffset:CGPointMake(cw * sender.tag , 0)animated:NO];
     
     self.currentIndex = sender.tag;
     
-    [sender setTitleColor:[UIColor redColor]forState:UIControlStateNormal]; 
+    [sender setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
+    sender.transform = CGAffineTransformMakeScale(1.285, 1.285);
+
 }
 
 #pragma mark dataSource
