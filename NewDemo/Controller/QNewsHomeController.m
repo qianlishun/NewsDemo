@@ -108,12 +108,19 @@ static NSString *const ID = @"home_cell";
     CGFloat cw = self.view.bounds.size.width;
 
     [self.collectionView setContentOffset:CGPointMake(cw * sender.tag , 0)animated:NO];
-    
-    self.currentIndex = sender.tag;
-    
-    [sender setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
-    sender.transform = CGAffineTransformMakeScale(1.285, 1.285);
 
+    self.currentIndex = sender.tag;
+
+    for (id btn in self.scrollView.subviews) {
+        if ([btn isKindOfClass:[UIButton class]]) {
+            UIButton *btn1 = (UIButton *)btn;
+            [btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            btn1.titleLabel.font = [UIFont systemFontOfSize:14];
+            btn1.transform = CGAffineTransformMakeScale(1, 1);
+        }
+    }
+    [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    sender.transform = CGAffineTransformMakeScale(1.285, 1.285);
 }
 
 #pragma mark dataSource
