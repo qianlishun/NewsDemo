@@ -56,11 +56,9 @@
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.refreshView = weakSelf.tableView.footer;
 
-        [weakSelf loadDataFromServer];
+        [weakSelf loadMoreData];
 
     }];
-
-    self.tableView.footer.hidden = YES;
 
     self.tableView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
 
@@ -76,6 +74,7 @@
 
 
 #pragma mark - 请求数据
+
 - (void)setUrlString:(NSString *)urlString{
 
     self.url = urlString;
@@ -84,7 +83,7 @@
     self.listArray = nil;
 
     [self.tableView reloadData];
-
+    
     self.tableView.footer.hidden = YES;
 
     [self.tableView.header beginRefreshing];
@@ -92,7 +91,12 @@
     [self loadDataFromServer];
 }
 
+- (void)loadMoreData{
 
+    self.pageIndex+=10;
+
+    [self loadDataFromServer];
+}
 
 - (void)loadDataFromServer{
 
