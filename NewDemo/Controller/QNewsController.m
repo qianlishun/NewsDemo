@@ -53,8 +53,6 @@
         [weakSelf loadDataFromServer];
     }];
 
-//    [self.tableView.header beginRefreshing];
-
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.refreshView = weakSelf.tableView.footer;
 
@@ -66,7 +64,6 @@
 
     self.tableView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
 
-//    [self loadData];
 }
 
 -(NSMutableArray *)listArray{
@@ -76,27 +73,25 @@
     }
     return  _listArray;
 }
-//
-//- (void)setListArray:(NSArray *)listArray{
-//    _listArray = li stArray;
-//
-//    [self.tableView reloadData];
-//}
+
 
 #pragma mark - 请求数据
 - (void)setUrlString:(NSString *)urlString{
 
     self.url = urlString;
 
-    self.pageIndex =0;
+    self.pageIndex = 0;
     self.listArray = nil;
 
     [self.tableView reloadData];
+
+    self.tableView.footer.hidden = YES;
 
     [self.tableView.header beginRefreshing];
 
     [self loadDataFromServer];
 }
+
 
 
 - (void)loadDataFromServer{
@@ -138,8 +133,6 @@
         [self doneWithView:self.refreshView];
         
         self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
-
-         self.pageIndex+=10;
 
     } errorBlock:^(NSError *error) {
         NSLog(@"请求失败,%@",error);
