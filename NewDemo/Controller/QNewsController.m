@@ -125,8 +125,6 @@
             
             [self.listArray insertObject:tempModel atIndex:1];
 
-            self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
-
         }else{
 
             for (id obj in array) {
@@ -138,6 +136,8 @@
         }
 
         [self doneWithView:self.refreshView];
+        
+        self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
 
          self.pageIndex+=10;
 
