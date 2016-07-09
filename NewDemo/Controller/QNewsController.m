@@ -112,26 +112,27 @@
 
             self.listArray = [NSMutableArray arrayWithArray:array];
 
-            // 拿出头条中的非轮播数据
-            NewsModel *model =  array[0];
-            NewsModel *tempModel = [NewsModel new];
-            tempModel.title = model.title;
-            tempModel.imgsrc = model.imgsrc;
-            tempModel.digest = model.digest;
-            tempModel.imgsrc = model.imgsrc;
-            tempModel.imgextra = model.imgextra;
-            tempModel.skipID = model.skipID;
+            // 网易新闻更新后,抓包抓到的数据变了 此代码不需要再加了...
+            // // 拿出头条中的非轮播数据
+            // NewsModel *model =  array[0];
+            // NewsModel *tempModel = [NewsModel new];
+            // tempModel.title = model.title;
+            // tempModel.imgsrc = model.imgsrc;
+            // tempModel.digest = model.digest;
+            // tempModel.imgsrc = model.imgsrc;
+            // tempModel.imgextra = model.imgextra;
+            // tempModel.skipID = model.skipID;
             
-            [self.listArray insertObject:tempModel atIndex:1];
+            // [self.listArray insertObject:tempModel atIndex:1];
 
         }else{
 
             for (id obj in array) {
                 [self.listArray addObject:obj];
             }
-            // 去除头条重复数据
-            NewsModel *model = array[0];
-            model.ads = nil;
+            // // 去除头条重复数据
+            // NewsModel *model = array[0];
+            // model.ads = nil;
         }
 
         [self doneWithView:self.refreshView];
