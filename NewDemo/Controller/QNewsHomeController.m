@@ -77,7 +77,8 @@ static NSString *const ID = @"home_cell";
   // 保证首次加载屏幕正确
     // iOS8 之后的方法
     [self viewWillTransitionToSize:[UIScreen mainScreen].bounds.size withTransitionCoordinator:self.transitionCoordinator];
-
+    // iOS8 之后的方法
+//    [self willRotateToInterfaceOrientation:self.interfaceOrientation duration:0]
 }
 
 - (void)loadChannels{
