@@ -73,6 +73,10 @@ static NSString *const ID = @"home_cell";
     self.collectionView.pagingEnabled = YES;
     self.collectionView.bounces = NO;
     self.collectionView.showsHorizontalScrollIndicator = NO;
+    
+  // 保证首次加载屏幕正确
+    // iOS8 之后的方法
+    [self viewWillTransitionToSize:[UIScreen mainScreen].bounds.size withTransitionCoordinator:self.transitionCoordinator];
 
 }
 
@@ -198,5 +202,10 @@ static NSString *const ID = @"home_cell";
 
 }
 
+// 旋转适配
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
+        self.collectionView.width = size.width;
+        self.scrollView.width = size.width;
+}
 
 @end
