@@ -114,6 +114,7 @@
 		3E1BA44A1D0D0A4600B8C7EE /* QLSTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1BA4421D0D0A4600B8C7EE /* QLSTabBar.m */; settings = {ASSET_TAGS = (); }; };
 		3E1BA44B1D0D0A4600B8C7EE /* QLSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1BA4441D0D0A4600B8C7EE /* QLSTabBarController.m */; settings = {ASSET_TAGS = (); }; };
 		3E1BA44C1D0D0A4600B8C7EE /* QLSTabItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1BA4461D0D0A4600B8C7EE /* QLSTabItem.m */; settings = {ASSET_TAGS = (); }; };
+		3E9AA0361D31E13F00A0C11C /* UIView+QLSFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9AA0351D31E13F00A0C11C /* UIView+QLSFrame.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -331,6 +332,8 @@
 		3E1BA4441D0D0A4600B8C7EE /* QLSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLSTabBarController.m; sourceTree = "<group>"; };
 		3E1BA4451D0D0A4600B8C7EE /* QLSTabItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLSTabItem.h; sourceTree = "<group>"; };
 		3E1BA4461D0D0A4600B8C7EE /* QLSTabItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLSTabItem.m; sourceTree = "<group>"; };
+		3E9AA0341D31E13F00A0C11C /* UIView+QLSFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QLSFrame.h"; sourceTree = "<group>"; };
+		3E9AA0351D31E13F00A0C11C /* UIView+QLSFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QLSFrame.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,6 +385,8 @@
 				3E1BA4361D0D052E00B8C7EE /* NewDemo.pch */,
 				3E1BA4371D0D052E00B8C7EE /* topic_news.json */,
 				3E1BA2F11D0D04BB00B8C7EE /* Info.plist */,
+				3E9AA0341D31E13F00A0C11C /* UIView+QLSFrame.h */,
+				3E9AA0351D31E13F00A0C11C /* UIView+QLSFrame.m */,
 				3E1BA2F71D0D04ED00B8C7EE /* Framewokes */,
 				3E1BA2E11D0D04BB00B8C7EE /* main.m */,
 			);
@@ -892,6 +897,7 @@
 				3E1BA3DA1D0D04EE00B8C7EE /* UIScrollView+MJExtension.m in Sources */,
 				3E1BA3AE1D0D04EE00B8C7EE /* AFNetworkReachabilityManager.m in Sources */,
 				3E1BA42E1D0D04F700B8C7EE /* ChannelLabel.m in Sources */,
+				3E9AA0361D31E13F00A0C11C /* UIView+QLSFrame.m in Sources */,
 				3E1BA3CA1D0D04EE00B8C7EE /* MJRefreshAutoFooter.m in Sources */,
 				3E1BA3D11D0D04EE00B8C7EE /* MJRefreshAutoStateFooter.m in Sources */,
 				3E1BA3D41D0D04EE00B8C7EE /* MJRefreshBackStateFooter.m in Sources */,
