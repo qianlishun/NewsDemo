@@ -10,6 +10,7 @@
 #import "Channel.h"
 #import "ChannelLabel.h"
 #import "NewsHomeCell.h"
+#import "UIView+QLSFrame.h"
 
 @interface QNewsHomeController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic,strong) UICollectionView *collectionView;
