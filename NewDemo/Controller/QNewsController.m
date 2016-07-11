@@ -169,11 +169,13 @@
 
     Class class = NSClassFromString(ID);
 
-     NewsBaseCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
-
+    NewsBaseCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
     if (!cell) {
         cell = [[class alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
+    
+    cell.newsModel = nil;
 
     if ([ID isEqualToString:@"NewsFourCell"]) {
         cell.fatherVC = self.fatherVC;
