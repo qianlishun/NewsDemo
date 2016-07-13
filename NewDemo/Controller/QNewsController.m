@@ -148,7 +148,7 @@
     } errorBlock:^(NSError *error) {
         NSLog(@"请求失败,%@",error);
          [self.refreshView endRefreshing];
-
+         [self performSelector:@selector(checkData) withObject:nil afterDelay:3.0];
     }];
 
 }
@@ -159,6 +159,12 @@
         [self.tableView reloadData];
     });
     [self.refreshView endRefreshing];
+}
+
+- (void)checkData{
+    if (!self.listArray.count) {
+        [self performSelector:@selector(timeOut) withObject:nil afterDelay:3.0];
+    }
 }
 
 - (void)timeOut{
