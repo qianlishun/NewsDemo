@@ -134,6 +134,9 @@
             // NewsModel *model = array[0];
             // model.ads = nil;
         }
+        
+         [self.tableView.tableHeaderView.subviews.lastObject removeFromSuperview];
+
 
         [self doneWithView:self.refreshView];
         
@@ -173,12 +176,20 @@
 
     UIButton *btn = [[UIButton alloc]initWithFrame:self.refreshView.bounds];
 
-    [btn setTitle:@"加载失败,请检查网络连接" forState:UIControlStateNormal];
+    [btn setTitle:@"加载失败,请检查网络连接 ☞" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 
     self.tableView.tableHeaderView = btn;
+    
+    [btn addTarget:self action:@selector(checkNetwork) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)checkNetwork{
+//prefs:root=General&path=Network
+
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+
+}
 
 
 #pragma mark - tableview delegate   datasource
