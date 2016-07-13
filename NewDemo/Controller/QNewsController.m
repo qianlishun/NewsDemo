@@ -138,6 +138,12 @@
         [self doneWithView:self.refreshView];
         
         self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
+        
+         if (self.listArray.count) {
+            [self doneWithView:self.refreshView];
+        }else{
+            [self performSelector:@selector(timeOut) withObject:nil afterDelay:5.0];
+        }
 
     } errorBlock:^(NSError *error) {
         NSLog(@"请求失败,%@",error);
@@ -154,6 +160,20 @@
     });
     [self.refreshView endRefreshing];
 }
+
+- (void)timeOut{
+
+    [self.refreshView endRefreshing];
+
+    UIButton *btn = [[UIButton alloc]initWithFrame:self.refreshView.bounds];
+
+    [btn setTitle:@"加载失败,请检查网络连接" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+
+    self.tableView.tableHeaderView = btn;
+}
+
+
 
 #pragma mark - tableview delegate   datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
