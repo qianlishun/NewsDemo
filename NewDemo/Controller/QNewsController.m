@@ -166,8 +166,8 @@
 
 - (void)checkData{
     if (!self.listArray.count) {
-        [self performSelector:@selector(timeOut) withObject:nil afterDelay:3.0];
-    }
+        [self timeOut];
+}
 }
 
 - (void)timeOut{
