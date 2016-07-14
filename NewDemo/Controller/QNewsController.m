@@ -15,8 +15,9 @@
 #import "NewsTwoCell.h"
 #import "NewsThreeCell.h"
 #import "NewsFourCell.h"
-
 #import "NewsWebController.h"
+#import "QNetWorkTools.h"
+#import "UIView+QLSFrame.h"
 
 @interface QNewsController () <SDCycleScrollViewDelegate>
 
@@ -30,9 +31,30 @@
 
 @property (nonatomic,copy) NSString  *url;
 
+@property (nonatomic,strong) UIButton *btn;
+
+@property (nonatomic,strong) NSMutableDictionary *cacheDict;
+
 @end
 
 @implementation QNewsController
+
+
+- (UIButton *)btn{
+
+    if (!_btn) {
+
+        UIButton *btn = [[UIButton alloc]init];
+
+        [btn setTitle:@"加载失败,请刷新或检查网络连接 ☞" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:13];
+        [btn addTarget:self action:@selector(checkNetwork) forControlEvents:UIControlEventTouchUpInside];
+
+        _btn = btn;
+    }
+    return _btn;
+}
 
 - (void)viewDidLoad{
 
@@ -77,10 +99,16 @@
 
 - (void)setUrlString:(NSString *)urlString{
 
+    QNetWorkTools *tools = [QNetWorkTools sharedNetworkTools];
+    for (NSURLSessionDataTask *task in tools.dataTasks) {
+        [task cancel];
+    }
+
+    [self.listArray removeAllObjects];
+
     self.url = urlString;
 
     self.pageIndex = 0;
-    self.listArray = nil;
 
     [self.tableView reloadData];
     
@@ -108,7 +136,8 @@
     [NewsModel newsWithURLString:[NSString stringWithFormat:@"%@/%ld-10.html",self.url,self.pageIndex]  success:^(NSArray *array) {
 
         if (self.pageIndex == 0) {
-            self.listArray=nil;
+
+            [self.listArray removeAllObjects];
 
             self.listArray = [NSMutableArray arrayWithArray:array];
 
@@ -130,28 +159,26 @@
             for (id obj in array) {
                 [self.listArray addObject:obj];
             }
-            // // 去除头条重复数据
-            // NewsModel *model = array[0];
-            // model.ads = nil;
+             // 去除头条重复数据
+             NewsModel *model = array[0];
+             model.ads = nil;
         }
         
-         [self.tableView.tableHeaderView.subviews.lastObject removeFromSuperview];
 
+        self.btn.hidden = YES;
 
-        [self doneWithView:self.refreshView];
-        
         self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
         
          if (self.listArray.count) {
             [self doneWithView:self.refreshView];
-        }else{
-            [self performSelector:@selector(timeOut) withObject:nil afterDelay:5.0];
-        }
+         }else{
+             [self performSelector:@selector(checkData) withObject:nil afterDelay:10.0];
+         }
 
     } errorBlock:^(NSError *error) {
         NSLog(@"请求失败,%@",error);
          [self.refreshView endRefreshing];
-         [self performSelector:@selector(checkData) withObject:nil afterDelay:3.0];
+         [self performSelector:@selector(checkData) withObject:nil afterDelay:15.0];
     }];
 
 }
@@ -167,21 +194,18 @@
 - (void)checkData{
     if (!self.listArray.count) {
         [self timeOut];
-}
+    }
 }
 
 - (void)timeOut{
 
     [self.refreshView endRefreshing];
 
-    UIButton *btn = [[UIButton alloc]initWithFrame:self.refreshView.bounds];
+    [self.tableView addSubview:_btn];
+    _btn.frame = self.refreshView.bounds;
 
-    [btn setTitle:@"加载失败,请检查网络连接 ☞" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    _btn.hidden = NO;
 
-    self.tableView.tableHeaderView = btn;
-    
-    [btn addTarget:self action:@selector(checkNetwork) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)checkNetwork{
@@ -211,8 +235,6 @@
     if (!cell) {
         cell = [[class alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
-    
-    cell.newsModel = nil;
 
     if ([ID isEqualToString:@"NewsFourCell"]) {
         cell.fatherVC = self.fatherVC;

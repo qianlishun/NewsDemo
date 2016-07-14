@@ -11,6 +11,7 @@
 #import "ChannelLabel.h"
 #import "NewsHomeCell.h"
 #import "UIView+QLSFrame.h"
+//#import "QNetWorkTools.h"
 
 @interface QNewsHomeController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic,strong) UICollectionView *collectionView;
@@ -193,9 +194,8 @@ static NSString *const ID = @"home_cell";
     }
 
     [self.scrollView setContentOffset:CGPointMake(offset, 0) animated:YES];
-#warning 在这里重写调用 set
-}
 
+}
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
