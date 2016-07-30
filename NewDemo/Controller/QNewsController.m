@@ -246,6 +246,11 @@
     cell.sd_tableView = tableView;
     cell.sd_indexPath = indexPath;
 
+    // 静默加载新数据
+    if(indexPath.row == self.listArray.count-3 && !self.tableView.footer.isRefreshing ){
+        [self loadMoreData];
+    }
+
     return cell;
 }
 
