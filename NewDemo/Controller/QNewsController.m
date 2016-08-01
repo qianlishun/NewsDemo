@@ -79,7 +79,6 @@
         weakSelf.refreshView = weakSelf.tableView.footer;
 
         [weakSelf loadMoreData];
-
     }];
 
     self.tableView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
@@ -118,7 +117,6 @@
     
     self.tableView.footer.hidden = YES;
 
-    NSLog(@"%ld",self.listArray.count);
     if (self.listArray.count) {
         return;
     }
@@ -182,8 +180,8 @@
         self.btn.hidden = YES;
 
         self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
-        
-         if (self.listArray.count) {
+
+         if (self.listArray.count - self.pageIndex == 10) {
             [self doneWithView:self.refreshView];
          }else{
              [self performSelector:@selector(checkData) withObject:nil afterDelay:10.0];
@@ -207,7 +205,7 @@
 
 - (void)checkData{
 
-    if (!self.listArray.count) {
+    if (self.listArray.count - self.pageIndex != 10) {
         [self timeOut];
     }
 }
@@ -231,7 +229,7 @@
 }
 
 
-#pragma mark - tableview delegate   datasource
+#pragma mark - tableview delegate  &&  datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
     return  self.listArray.count;
@@ -262,9 +260,9 @@
     cell.sd_indexPath = indexPath;
 
    // 静默加载新数据
-    if(indexPath.row == self.listArray.count-3 && !self.tableView.footer.isRefreshing ){
-        [self loadMoreData];
-    }
+//    if(indexPath.row == self.listArray.count-3 && !self.tableView.footer.isRefreshing){
+//        [self loadMoreData];
+//    }
 
     return cell;
 }
