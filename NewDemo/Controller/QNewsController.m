@@ -21,8 +21,6 @@
 
 @interface QNewsController () <SDCycleScrollViewDelegate>
 
-@property (nonatomic,strong) NSMutableArray *listArray;
-
 @property (nonatomic,assign) NSInteger pageIndex;
 
 @property (nonatomic,strong) MJRefreshComponent *refreshView;
@@ -93,15 +91,6 @@
     }
     return _cacheDict;
 }
-
--(NSMutableArray *)listArray{
-    if (!_listArray) {
-        _listArray = [NSMutableArray array];
-
-    }
-    return  _listArray;
-}
-
 
 #pragma mark - 请求数据
 
