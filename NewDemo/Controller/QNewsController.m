@@ -1,5 +1,5 @@
 //
-//  QNews.m
+//  QNewsController.m
 //  toolsDemo
 //
 //  Created by Mr.Q on 16/6/4.
@@ -83,7 +83,15 @@
     }];
 
     self.tableView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
+}
 
+- (NSMutableDictionary *)cacheDict{
+
+    if (!_cacheDict) {
+        _cacheDict = [NSMutableDictionary dictionaryWithCapacity:20];
+
+    }
+    return _cacheDict;
 }
 
 -(NSMutableArray *)listArray{
@@ -99,20 +107,25 @@
 
 - (void)setUrlString:(NSString *)urlString{
 
+    self.url = urlString;
+
+    NSArray *arr = self.cacheDict[self.url];
+
     QNetWorkTools *tools = [QNetWorkTools sharedNetworkTools];
     for (NSURLSessionDataTask *task in tools.dataTasks) {
         [task cancel];
     }
-
-    [self.listArray removeAllObjects];
-
-    self.url = urlString;
 
     self.pageIndex = 0;
 
     [self.tableView reloadData];
     
     self.tableView.footer.hidden = YES;
+
+    NSLog(@"%ld",arr.count);
+    if (arr.count) {
+        return;
+    }
 
     [self.tableView.header beginRefreshing];
 
@@ -133,13 +146,17 @@
 
 //    NSString *urlString = [NSString stringWithFormat:@"http://c.m.163.com/nc/article/B6UKRIOE00963VRO/full.html"];
 
+    NSMutableArray *listArray = [NSMutableArray array];
+
     [NewsModel newsWithURLString:[NSString stringWithFormat:@"%@/%ld-10.html",self.url,self.pageIndex]  success:^(NSArray *array) {
 
         if (self.pageIndex == 0) {
 
-            [self.listArray removeAllObjects];
+            [self.cacheDict[self.url] removeAllObjects];
 
-            self.listArray = [NSMutableArray arrayWithArray:array];
+            [listArray removeAllObjects];
+
+            [listArray addObjectsFromArray:array];
 
             // 网易新闻更新后,抓包抓到的数据变了 此代码不需要再加了...
             // // 拿出头条中的非轮播数据
@@ -157,19 +174,20 @@
         }else{
 
             for (id obj in array) {
-                [self.listArray addObject:obj];
+                [listArray addObject:obj];
             }
              // 去除头条重复数据
              NewsModel *model = array[0];
              model.ads = nil;
         }
         
+        [self.cacheDict setObject:listArray forKey:self.url];
 
         self.btn.hidden = YES;
 
-        self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
+        self.tableView.footer.hidden = listArray.count==0?YES:NO;
         
-         if (self.listArray.count) {
+         if (listArray.count) {
             [self doneWithView:self.refreshView];
          }else{
              [self performSelector:@selector(checkData) withObject:nil afterDelay:10.0];
@@ -192,7 +210,10 @@
 }
 
 - (void)checkData{
-    if (!self.listArray.count) {
+
+    NSArray *arr = self.cacheDict[self.url];
+
+    if (!arr.count) {
         [self timeOut];
     }
 }
@@ -218,13 +239,13 @@
 
 #pragma mark - tableview delegate   datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  self.listArray.count;
+    NSArray *arr = self.cacheDict[self.url];
+    return  arr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-
-    NewsModel *newsModel = self.listArray[indexPath.row];
+    NewsModel *newsModel = self.cacheDict[self.url][indexPath.row];
 
     NSString *ID = [NewsBaseCell cellIDforRow:newsModel];
 
@@ -247,7 +268,7 @@
     cell.sd_indexPath = indexPath;
 
     // 静默加载新数据
-    if(indexPath.row == self.listArray.count-3 && !self.tableView.footer.isRefreshing ){
+    if(indexPath.row == self.tableView.numberOfSections-3 && !self.tableView.footer.isRefreshing ){
         [self loadMoreData];
     }
 
@@ -255,7 +276,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NewsModel *newsModel = self.listArray[indexPath.row];
+    NewsModel *newsModel = self.cacheDict[self.url][indexPath.row];
 
     NSString *ID = [NewsBaseCell cellIDforRow:newsModel];
 
@@ -277,7 +298,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    NewsModel *model = self.listArray[indexPath.row];
+    NewsModel *model = self.cacheDict[self.url][indexPath.row];
     // 创建一个用于跳转的控制器
     NewsWebController *vc = [[NewsWebController alloc]init];
 
