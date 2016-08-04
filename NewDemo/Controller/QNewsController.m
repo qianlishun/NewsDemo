@@ -115,7 +115,7 @@
 
     [self.tableView reloadData];
     
-    self.tableView.footer.hidden = YES;
+    self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
 
     if (self.listArray.count) {
         return;
@@ -144,7 +144,7 @@
 
 //    NSMutableArray *listArray = [NSMutableArray arrayWithArray:self.listArray];
 
-    [NewsModel newsWithURLString:[NSString stringWithFormat:@"%@/%ld-10.html",self.url,self.pageIndex]  success:^(NSArray *array) {
+    [NewsModel newsWithURLString:[NSString stringWithFormat:@"%@/%zd-10.html",self.url,self.pageIndex]  success:^(NSArray *array) {
 
         if (self.pageIndex == 0) {
 
@@ -174,15 +174,17 @@
              NewsModel *model = array[0];
              model.ads = nil;
         }
+
         
         [self.cacheDict setObject:self.listArray forKey:self.url];
 
-        self.btn.hidden = YES;
-
         self.tableView.footer.hidden = self.listArray.count==0?YES:NO;
+
+        self.btn.hidden = YES;
 
          if (self.listArray.count - self.pageIndex == 10) {
             [self doneWithView:self.refreshView];
+
          }else{
              [self performSelector:@selector(checkData) withObject:nil afterDelay:10.0];
          }
@@ -200,7 +202,9 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
+
     [self.refreshView endRefreshing];
+
 }
 
 - (void)checkData{
