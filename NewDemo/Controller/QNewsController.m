@@ -80,6 +80,8 @@
 
         [weakSelf loadMoreData];
     }];
+    
+    self.navigationController.hidesBarsOnSwipe = Yes
 
     self.tableView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
 }
