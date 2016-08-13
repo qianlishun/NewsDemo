@@ -21,11 +21,11 @@
 
 @property (nonatomic,copy) NSString  *imgsrc;
 
-@property (nonatomic,copy) NSNumber *imgType;
+@property (nonatomic,strong) NSNumber *imgType;
 
 @property (nonatomic,copy) NSString  *digest;
 
-@property (nonatomic,copy) NSNumber  *replyCount;
+@property (nonatomic,strong) NSNumber  *replyCount;
 
 /**
  *  多图数组
@@ -41,10 +41,10 @@
 @property (nonatomic,copy) NSString  *lmodify;
 @property (nonatomic,copy) NSString  *photosetID;
 @property (nonatomic,copy) NSString  *template;
-@property (nonatomic,copy) NSNumber  *votecount;
+@property (nonatomic,strong) NSNumber  *votecount;
 
 @property (nonatomic,copy) NSNumber  *hasHead;
-@property (nonatomic,copy) NSNumber  *hasImg;
+@property (nonatomic,strong) NSNumber  *hasImg;
 
 @property (nonatomic,copy) NSString  *skipType;
 @property (nonatomic,copy) NSString  *skipID;
@@ -53,8 +53,8 @@
 
 
 @property (nonatomic,assign) BOOL  hasCover;
-@property (nonatomic,copy) NSNumber  *hasAD;
-@property (nonatomic,copy) NSNumber  *priority;
+@property (nonatomic,strong) NSNumber  *hasAD;
+@property (nonatomic,strong) NSNumber  *priority;
 @property (nonatomic,copy) NSString  *cid;
 
 
