@@ -9,6 +9,7 @@
 * 根控制器为UICollectionViewController,子界面为在collectionViewCell里加载tableView
 * tableView里的cell根据数据的不同去选择加载对应类型的cell
 * 使用第三方框架：AFNetiworking,SDWebImage,SDAutoLayout,MJRefresh,SDCycleScrollView...
+* 这个 demo 算是 UIcollectionView + UITableView + UIScrollView 的嵌套实现了吧= =, 
 
 ####日志
 * 1. 仿网易新闻app,基本框架完成,可左右滑动切换新闻频道(每个 cell 跳转的是 webview)  
