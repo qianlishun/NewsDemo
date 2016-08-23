@@ -42,6 +42,7 @@
 
 - (UIButton *)btn{
 
+//这里判断网络连接还是有些问题,暂时这样.
     if (!_btn) {
 
         UIButton *btn = [[UIButton alloc]init];
