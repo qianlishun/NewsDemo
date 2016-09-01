@@ -3,7 +3,7 @@
 //  toolsDemo
 //
 //  Created by Mr.Q on 16/6/4.
-//  Copyright © 2016年 钱立顺. All rights reserved.
+//  Copyright © 2016年 QLS. All rights reserved.
 //
 #import "QNewsController.h"
 #import "MJRefresh.h"
