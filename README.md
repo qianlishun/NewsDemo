@@ -1,6 +1,5 @@
 # NewsDemo
 
-####news demo
 ####效果图
 <img src="http://ww4.sinaimg.cn/mw690/e70bae90gw1f53v2ngvlej20hs0vkwlp.jpg" alt="" width="231" height="426" />   <img src="http://ww3.sinaimg.cn/mw690/e70bae90gw1f67i10814tj20hc0v40ur.jpg" alt="" width="231" height="426" />
 
